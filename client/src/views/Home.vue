@@ -84,11 +84,10 @@
                 :disabled="isSending")
           | {{ isSending ? 'Sending' : 'Send' }}
 
-    // built files will be auto injected
-    div(style='text-align: center; margin-top: 20px;')
-      | Go to 
-      span(style='font-size: 15px;')
-        a(href='https://github.com/iamstevendao/email-sender') Github
+    div(style="text-align: right; margin-top: 20px;")
+      | Go to
+      span(style="font-size: 15px; margin-left: 5px")
+        a(href="https://github.com/iamstevendao/email-sender") Github
         | .
 
   b-modal(ref="statusModal",
