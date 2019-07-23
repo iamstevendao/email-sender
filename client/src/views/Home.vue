@@ -6,7 +6,7 @@
   .offset-sm-2.col-sm-8.form
     .row
       .col-sm-2
-        label(for="from") From:
+        label(for="from") #[b From:]
       .col-sm-10
         b-form-input(name="from",
                     v-model="model.from",
@@ -20,7 +20,7 @@
           | Enter an valid email address
     .row
       .col-sm-2
-        label(for="to") To:
+        label(for="to") #[b To:]
       .col-sm-10
         b-form-input(name="to",
                      v-model="model.to",
@@ -33,7 +33,7 @@
 
     .row
       .col-sm-2
-        label(for="cc") CC:
+        label.text-muted(for="cc") CC:
       .col-sm-10
         b-form-input(name="cc",
                     v-model="model.cc",
@@ -43,7 +43,7 @@
           | Enter one or more valid email address(es), separate by comma (,)
     .row
       .col-sm-2
-        label(for="bcc") BCC:
+        label.text-muted(for="bcc") BCC:
       .col-sm-10
         b-form-input(name="bcc",
                      v-model="model.bcc",
@@ -54,7 +54,7 @@
 
     .row
       .col-sm-2
-        label(for="subject") Subject:
+        label(for="subject") #[b Subject:]
       .col-sm-10
         b-form-input(name="subject",
                      v-model="model.subject",
@@ -65,7 +65,7 @@
 
     .row
       .col-sm-2
-        label(for="content") Content:
+        label(for="content") #[b Content:]
       .col-sm-10
         b-form-textarea(name="content",
                         v-model="model.content",
