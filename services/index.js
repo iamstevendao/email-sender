@@ -1,5 +1,9 @@
 const send = require('./sender.js')
 
+/**
+ * @summary Validate the mail object if the required fields are missing or have invalid type
+ * @param {object} mail
+ */
 function validateObject(mail) {
   if (!mail) {
     return 'Body is invalid';

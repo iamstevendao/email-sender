@@ -8,24 +8,24 @@ const URL_SPARKPOST = 'https://api.sparkpost.com/api/v1/transmissions';
 
 const send = (mail, callback) => {
   const errors = [];
-  // send by SendGrid first
+  // Send by SendGrid
   sendBySendGrid(mail, (resSendGrid) => {
-    // check code
+    // Check status code
     if (!validateCode(resSendGrid)) {
       errors.push({ provider: 'SendGrid', message: resSendGrid.errors });
-      // code is failed, try to send by sparkpost
+      // Code is failed, try to send by sparkpost
       sendBySparkpost(mail, (resSparkpost) => {
-        // check code
+        // Check status code
         if (!validateCode(resSparkpost)) {
           errors.push({ provider: 'Sparkpost', message: resSparkpost.errors });
-          // return fail
+          // Return fail
           callback({
             success: false,
             status: 400,
             errors,
           });
         } else {
-          // otherwise return success
+          // Otherwise return success
           callback({
             success: true,
             status: resSparkpost.status,
@@ -49,14 +49,21 @@ const send = (mail, callback) => {
   })
 }
 
+/**
+ * @summary Decide to return FAIL or TRUE based on the returned status
+ * @param {Object} response 
+ */
 function validateCode(response = {}) {
-  // decide to return FAIL or TRUE based on the returned status
   if (response.status > 300) {
     return false;
   }
   return true;
 }
 
+/**
+ * @summary Get array of email address from the string
+ * @param {String} str 
+ */
 function getAddresses(str) {
   if (!str || typeof str !== 'string') {
     return [];
@@ -88,6 +95,7 @@ function sendBySendGrid(mail, callback) {
     Object.assign(personalization, { bcc });
   }
 
+  // SENDGRID
   axios({
     method: 'POST',
     url: URL_SENDGRID,
