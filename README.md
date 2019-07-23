@@ -88,6 +88,8 @@
 
   * **Code:** 400 <br />
     **Content:** `{ success : false, errors: [], metadata: {} }`
+  
+  :warning: In order to send emails via `Sparkpost`, you need to setup your domain. Here is the [Instruction link](https://www.sparkpost.com/docs/getting-started/setting-up-domains/).
 
 * **Sample Call:**
 
