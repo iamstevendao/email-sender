@@ -4,13 +4,15 @@
 
 ## Technology stack
 
-- Client: Vue
-- Server: Express
+- Client: Vue.
+- Server: Express.
+- Email providers: [SendGrid](https://sendgrid.com/docs/API_Reference/api_v3.html), [Sparkpost](https://developers.sparkpost.com/api/transmissions/#transmissions-post-send-inline-content).
 
 ## Installation
 ```bash
   cd client
   npm install
+
   cd ../server
   npm install
 ```
@@ -83,7 +85,7 @@
           subject: 'subject',
           content: 'content',
         }),
-      })
+    })
   ```
 
 ## Deployment
