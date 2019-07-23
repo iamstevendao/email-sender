@@ -1,6 +1,6 @@
 <template lang="pug">
 .row
-  .col-sm-12
+  .col-sm-12(style="margin-top: 30px")
     h2.text-center Send an email
 
   .offset-sm-2.col-sm-8.form
