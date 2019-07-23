@@ -1,6 +1,6 @@
 ## Email sender
 
-## [Demo](https://email-sender-challenge.netlify.com/)
+#### [Demo](https://email-sender-challenge.netlify.com/)
 
 ## Technology stack
 
@@ -28,8 +28,10 @@
 
 2. Run server:
 
-  - Create a `.env` file with the `API_KEY` of SendGrid and Sparkpost (`.sample.env` as a sample)
-  - Run script
+  - Create a `.env` file with the `API_KEY` of SendGrid and Sparkpost (use `.sample.env` as a sample)
+
+  - Run scripts
+
   ```bash
     cd server
     npm run dev # Default port 4000
