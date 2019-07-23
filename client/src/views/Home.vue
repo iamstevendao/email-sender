@@ -78,10 +78,18 @@
     .row
       .col-sm-12.text-center
         p.text-danger(v-if="showError && errorText") {{ errorText }}
-        b-button.btn-primary(type="submit",
-                            @click="submit",
-                            :disabled="isSending")
-          | {{ isSending ? 'Sending' : 'Submit' }}
+        b-button(type="submit",
+                variant="primary",
+                @click="submit",
+                :disabled="isSending")
+          | {{ isSending ? 'Sending' : 'Send' }}
+
+    // built files will be auto injected
+    div(style='text-align: center; margin-top: 20px;')
+      | Go to 
+      span(style='font-size: 15px;')
+        a(href='https://github.com/iamstevendao/email-sender') Github
+        | .
 
   b-modal(ref="statusModal",
           title="Status")
