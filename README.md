@@ -1,5 +1,7 @@
 ## Email sender
 
+## [Demo](https://email-sender-challenge.netlify.com/)
+
 ## Technology stack
 
 - Client: Vue
@@ -35,7 +37,9 @@
 
 ## API
 
-* **URL:** `/`
+* **URL:** `/` 
+
+  Demo URL: `https://email-sender-challenge.herokuapp.com/`
 
 * **Method:** `POST`
 
