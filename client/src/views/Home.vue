@@ -3,7 +3,7 @@
   .col-sm-12
     h2.text-center Send an email
 
-  .offset-sm-2.col-sm-8
+  .offset-sm-2.col-sm-8.form
     .row
       .col-sm-2
         label(for="from") From:
@@ -75,12 +75,13 @@
         b-form-invalid-feedback#feedback-content
           | Content is required
 
-  .col-sm-12.text-center
-    p.text-danger(v-if="showError && errorText") {{ errorText }}
-    b-button.btn-primary(type="submit",
-                        @click="submit",
-                        :disabled="isSending")
-      | {{ isSending ? 'Sending' : 'Submit' }}
+    .row
+      .col-sm-12.text-center
+        p.text-danger(v-if="showError && errorText") {{ errorText }}
+        b-button.btn-primary(type="submit",
+                            @click="submit",
+                            :disabled="isSending")
+          | {{ isSending ? 'Sending' : 'Submit' }}
 
   b-modal(ref="statusModal",
           title="Status")
@@ -100,11 +101,11 @@ export default {
     isSending: false,
     showError: false,
     model: {
-      from: 'hello@gmail.com',
-      to: 'fukifaku@gmail.com',
+      from: '',
+      to: '',
       cc: '',
       bcc: '',
-      subject: 'asdfsadf',
+      subject: '',
       content: '',
     },
   }),
@@ -174,3 +175,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.form .row {
+  margin-top: 20px;
+}
+</style>
