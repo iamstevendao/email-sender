@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "test": "newman run ./tests/api-tests.postman.json -e ./tests/env-api-tests.postman.json"
   },
   "keywords": [],
   "author": "Steven Dao <iamstevendao@gmail.com>",
@@ -19,6 +20,7 @@
     "morgan": "^1.9.1"
   },
   "devDependencies": {
+    "newman": "^4.5.1",
     "nodemon": "^1.19.1"
   }
 }

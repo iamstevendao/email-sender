@@ -37,6 +37,23 @@
 
 3. Open browser `http://localhost:8080/`
 
+## Testing
+
+#### Client:
+  - Unit tests (Jest):
+
+    `npm run test:unit`
+
+  - E2E tests (Cypress):
+
+    `npm run test:e2e`
+
+#### Server:
+  - API tests (Newman):
+
+    `npm run test`
+
+
 ## API
 
 * **URL:** `/` 

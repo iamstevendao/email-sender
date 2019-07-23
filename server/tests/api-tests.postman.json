@@ -1,0 +1,66 @@
+{
+  "variables": [],
+  "info": {
+    "name": "Email sender API Tests",
+    "_postman_id": "dda3e595-02d7-bf12-2a43-3daea0970192",
+    "description": "Collection for testing the Email sender API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Send a sample email",
+      "description": "",
+      "item": [
+        {
+          "name": "Send",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (!(environment.isIntegrationTest)) {",
+                  "var responseJSON = JSON.parse(responseBody);",
+                  "",
+                  "tests['Response contains \"success\" property'] = responseJSON.hasOwnProperty('success');",
+                  "",
+                  "if (responseJSON.success) {",
+                  "",
+                  "tests['Response contains \"metadata\" property'] = responseJSON.hasOwnProperty('metadata');",
+                  "tests['Metadata has \"provider\" property'] = responseJSON.metadata.hasOwnProperty('provider');",
+                  "}",
+                  "else {",
+                  "tests['Errors exists'] = responseJSON.errors.length > 1;",
+                  "}",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": "{{apiUrl}}/",
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"from\": \"from@gmail.com\", \"to\": \"to-api-test@mailinator.com\", \"subject\": \"Test from newman\", \"content\": \"Here is the content\" }"
+            },
+            "description": ""
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
