@@ -3,7 +3,7 @@ const axios = require('axios')
 // constants from .env
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 const SPARKPOST_API_KEY = process.env.SPARKPOST_API_KEY;
-const URL_SENDGRID = 'https://api.sendgrid.com/v3/mail/sendx';
+const URL_SENDGRID = 'https://api.sendgrid.com/v3/mail/send';
 const URL_SPARKPOST = 'https://api.sparkpost.com/api/v1/transmissions';
 
 const send = (mail, callback) => {
