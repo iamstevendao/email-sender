@@ -1,57 +1,16 @@
 const axios = require('axios')
 
-// constants from .env
+// Constants from .env
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
 const SPARKPOST_API_KEY = process.env.SPARKPOST_API_KEY;
 const URL_SENDGRID = 'https://api.sendgrid.com/v3/mail/send';
 const URL_SPARKPOST = 'https://api.sparkpost.com/api/v1/transmissions';
 
-const send = (mail, callback) => {
-  const errors = [];
-  // Send by SendGrid
-  sendBySendGrid(mail, (resSendGrid) => {
-    // Check status code
-    if (!validateCode(resSendGrid)) {
-      errors.push({ provider: 'SendGrid', message: resSendGrid.errors });
-      // Code is failed, try to send by sparkpost
-      sendBySparkpost(mail, (resSparkpost) => {
-        // Check status code
-        if (!validateCode(resSparkpost)) {
-          errors.push({ provider: 'Sparkpost', message: resSparkpost.errors });
-          // Return fail
-          callback({
-            success: false,
-            status: 400,
-            errors,
-          });
-        } else {
-          // Otherwise return success
-          callback({
-            success: true,
-            status: resSparkpost.status,
-            errors,
-            metadata: {
-              provider: 'Sparkpost',
-            },
-          })
-        }
-      })
-    } else {
-      callback({
-        success: true,
-        status: resSendGrid.status,
-        errors,
-        metadata: {
-          provider: 'SendGrid',
-        },
-      });
-    }
-  })
-}
-
 /**
  * @summary Decide to return FAIL or TRUE based on the returned status
  * @param {Object} response 
+ * 
+ * @return {Boolean}
  */
 function validateCode(response = {}) {
   if (response.status > 300) {
@@ -63,6 +22,8 @@ function validateCode(response = {}) {
 /**
  * @summary Get array of email address from the string
  * @param {String} str 
+ * 
+ * @return {Array} Splitted email addresses
  */
 function getAddresses(str) {
   if (!str || typeof str !== 'string') {
@@ -71,6 +32,14 @@ function getAddresses(str) {
   return str.split(';').map(address => address.trim()).filter(Boolean);
 }
 
+/**
+ * @summary Send email via SendGrid
+ * 
+ * @param {Object} mail
+ * @param {Function} callback
+ * 
+ * @return {Void} via callback
+ */
 function sendBySendGrid(mail, callback) {
   const to = getAddresses(mail.to).map(address => ({ email: address }));
   const cc = getAddresses(mail.cc).map(address => ({ email: address }));
@@ -126,6 +95,14 @@ function sendBySendGrid(mail, callback) {
     })
 }
 
+/**
+ * @summary Send email via Sparkpost
+ * 
+ * @param {Object} mail
+ * @param {Function} callback
+ * 
+ * @return {Void} via callback
+ */
 function sendBySparkpost(mail, callback) {
   const to = getAddresses(mail.to).map(address => ({ address: { email: address } }));
   const cc = getAddresses(mail.cc).map(address => ({
@@ -175,4 +152,53 @@ function sendBySparkpost(mail, callback) {
     })
 }
 
-module.exports = send
+/**
+ * @summary Send email via SendGrid, if failed via Sparkpost
+ * 
+ * @param {Object} mail
+ * @param {Function} callback
+ * 
+ * @return {Void} via callback
+ */
+module.exports = (mail, callback) => {
+  const errors = [];
+  // Send by SendGrid
+  sendBySendGrid(mail, (resSendGrid) => {
+    // Check status code
+    if (!validateCode(resSendGrid)) {
+      errors.push({ provider: 'SendGrid', message: resSendGrid.errors });
+      // Code is failed, try to send by sparkpost
+      sendBySparkpost(mail, (resSparkpost) => {
+        // Check status code
+        if (!validateCode(resSparkpost)) {
+          errors.push({ provider: 'Sparkpost', message: resSparkpost.errors });
+          // Return fail
+          callback({
+            success: false,
+            status: 400,
+            errors,
+          });
+        } else {
+          // Otherwise return success
+          callback({
+            success: true,
+            status: resSparkpost.status,
+            errors,
+            metadata: {
+              provider: 'Sparkpost',
+            },
+          })
+        }
+      })
+    } else {
+      callback({
+        success: true,
+        status: resSendGrid.status,
+        errors,
+        metadata: {
+          provider: 'SendGrid',
+        },
+      });
+    }
+  })
+}

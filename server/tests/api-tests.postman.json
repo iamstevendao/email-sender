@@ -12,7 +12,7 @@
       "description": "",
       "item": [
         {
-          "name": "Send",
+          "name": "Send a valid quest",
           "event": [
             {
               "listen": "test",
@@ -55,6 +55,51 @@
             "body": {
               "mode": "raw",
               "raw": "{\"from\": \"from@gmail.com\", \"to\": \"to-api-test@mailinator.com\", \"subject\": \"Test from newman\", \"content\": \"Here is the content\" }"
+            },
+            "description": ""
+          },
+          "response": []
+        },
+        {
+          "name": "Send an invalid quest",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (!(environment.isIntegrationTest)) {",
+                  "var responseJSON = JSON.parse(responseBody);",
+                  "",
+                  "tests['Response contains \"success\" property'] = responseJSON.hasOwnProperty('success');",
+                  "tests['\"Success\" is false'] = !responseJSON.success;",
+                  "",
+                  "tests['It is a validation error'] = responseJSON.errors[0].field === 'validation';",
+                  "tests['Error is missing FROM'] = responseJSON.errors[0].message === '\"from\" is required';",
+                  "",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "url": "{{apiUrl}}/",
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": ""
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest",
+                "description": ""
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"to\": \"to-api-test@mailinator.com\", \"subject\": \"Test from newman\", \"content\": \"Here is the content\" }"
             },
             "description": ""
           },

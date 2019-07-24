@@ -3,6 +3,8 @@ const send = require('./sender.js')
 /**
  * @summary Validate the mail object if the required fields are missing or have invalid type
  * @param {object} mail
+ * 
+ * @return {String} Error message, returns an empty string if no errors
  */
 function validateObject(mail) {
   if (!mail) {
@@ -35,7 +37,14 @@ function validateObject(mail) {
   return '';
 }
 
-// POST
+/**
+ * @summary Call back function for POST request to send email
+ * 
+ * @param {Object} req
+ * @param {Object} res
+ * 
+ * @return {Object} Promise, contains success (TRUE/FALSE), errors and metadata
+ */
 module.exports = (req, res) => {
   const mail = req.body;
 

@@ -112,8 +112,9 @@
 ## Deployment
 
 1. Change `VUE_APP_API_URL` to the expecting URL of the server
-2. Run `sh deploy.sh`
-3. Deploy `gh-pages`
-4. Deploy `heroku` to a deployment service of choice.
+2. Replace `git@github.com:iamstevendao/email-sender.git` in `deloy.sh` with your repo URL.
+3. Run `sh deploy.sh`
+4. Deploy `gh-pages`
+5. Deploy `heroku` to a deployment service of choice.
 
 made with &#x2764; by [Steven](https://github.com/iamstevendao).
